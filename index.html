@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure IoT</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Pavanam' rel='stylesheet'>
     <style>
+        
         *{
             box-sizing: border-box;
             line-height: 20px;
+            font-family: 'Pavanam';font-size: 22px;
         }
         body{
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 0px;
             margin: 0px;
             background-color: white;
@@ -33,6 +35,7 @@
         .header h1{
             margin-left: 20%;
             font-size: xx-large;
+            color: white;
 
         }
         .user{
@@ -72,8 +75,8 @@
         }
         .main{
             width: auto;
-            margin-top: 10vh;
-            height: 20vh;
+            margin-top: 5vh;
+            height: 25vh;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             display: flex;
             grid-template-columns: 70% auto;
@@ -109,11 +112,12 @@
             height: 200px;
             margin: auto;
             margin-top: 10vh;
+            border-radius: 5%;
         }
         pre{
             font-size: xx-large;
             font-weight: bolder;
-            color: grey;
+            color: white;
             
         }
         .lock{
@@ -121,6 +125,130 @@
         }
         .unlock{
             display: block;
+        }
+        /* On screens that are 600px or less, set the background color to olive */
+        @media screen and (max-width: 800px) {
+            *{
+            box-sizing: border-box;
+            line-height: 20px;
+            font-family: 'Pavanam';
+            font-size: 10px;
+        }
+        body{
+            padding: 0px;
+            margin: 0px;
+            width: 100%;
+            background-color: rgb(168, 65, 65);
+        }
+        nav{
+            width: 100%;
+            height: 20vh;
+            
+            display: grid;
+            grid-template-columns: auto auto;
+            align-content: space-between; 
+            background-color: yellow;
+        }
+        .header{
+            background-color: blue;
+            display: inline-block;
+            line-height: 30px;
+            
+        }
+        .header h1{
+            margin-left: 20%;
+            font-size: xx-large;
+            color: white;
+
+        }
+        .user{
+            display: inline-block;
+            width: auto;
+            height: auto;
+            background-color: red;
+            
+        }
+        .usericon{
+            float: right;
+            margin-right: 10%;
+            padding: 5px 10px;
+            background-color: white;
+            width: auto;
+            display: grid;
+            grid-template-columns: auto auto;
+            align-content: center;
+            
+            border-top-left-radius: 30%;
+            border-bottom-left-radius: 30%;
+        }
+        .usericon p{
+            border-top-left-radius: 30%;
+            border-bottom-left-radius: 30%;
+            border: 3px solid rgb(134, 42, 238);
+            border-right: none;
+            padding-right: 15px;
+            padding: 15px 15px 15px 10px;
+            display: inline-block;
+            font-size: larger;
+            font-weight: bolder;
+        }
+        .usericon img{
+            margin-top: 10px;
+            border-radius: 50%;
+        }
+        .main{
+            width: auto;
+            margin-top: 5vh;
+            height: 25vh;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            grid-template-columns: 70% auto;
+        }
+        .systemone{
+            width: calc(50% + 50px);
+            height: auto;
+            padding: 2% 5%;
+            line-height: 20px;
+            text-align: justify;
+        }
+        .systemtext{
+            width: calc(50% - 50px);
+            height: auto;
+            background-color: blue;
+            border-left: 100px solid white;
+            border-bottom: 160px solid transparent;
+            align-items:flex-end;
+        }
+        .text{
+            display: grid;
+            align-content:end;
+        }
+        .button{
+            width: 100%;
+            height: auto;
+            margin: auto;
+            
+            display: grid;
+        }
+        .button img{
+            width: 200px;
+            height: 200px;
+            margin: auto;
+            margin-top: 10vh;
+            border-radius: 5%;
+        }
+        pre{
+            font-size: xx-large;
+            font-weight: bolder;
+            color: white;
+            
+        }
+        .lock{
+            display: none;
+        }
+        .unlock{
+            display: block;
+        }
         }
     </style>
 </head>
@@ -163,7 +291,7 @@
     <section class="trigger">
         
         <div class="button" id="toggle">
-            <img src="/image/padlock.png" alt="padlock" class="lock" >
+            <img src="/image/padlock.png" alt="padlock" class="lock" id="flash" >
             <img src="/image/padopen.png" alt="open lock" class="unlock">
             
         </div>
@@ -230,6 +358,13 @@
             .catch((error)=>{
                 console.log("unsuccessful " + error);
             })
+
+            //start the blink animation if the alarm is triggered
+            if(alarm === "1"){
+                var img = document.getElementById("flash");
+                img.style.transition = "background-color 0.5s";
+                img.style.backgroundColor = (img.style.backgroundColor === "white") ? "red" : "white";
+            }
         }
 
         function getLockState(){
@@ -274,7 +409,7 @@
         toggle.addEventListener('click',function(){
             console.log("Clicked the button");
             console.log("Lock " + lock);
-            getLockState();
+            // getLockState();
             var div1 = document.getElementsByClassName("unlock");
             var div2 = document.getElementsByClassName("lock");
 
