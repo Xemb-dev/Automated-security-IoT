@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure IoT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        *{
+            box-sizing: border-box;
+            line-height: 20px;
+        }
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 0px;
+            margin: 0px;
+            background-color: white;
+        }
+        nav{
+            width: auto;
+            height: 20vh;
+            
+            display: grid;
+            grid-template-columns: auto auto;
+            align-content: center;
+        }
+        .header{
+            background-color: blue;
+            display: inline-block;
+            
+            
+        }
+        .header h1{
+            margin-left: 20%;
+            font-size: xx-large;
+
+        }
+        .user{
+            display: inline-block;
+            width: auto;
+            height: auto;
+            
+            
+        }
+        .usericon{
+            float: right;
+            margin-right: 10%;
+            padding: 5px 10px;
+            background-color: white;
+            width: auto;
+            display: grid;
+            grid-template-columns: auto auto;
+            align-content: center;
+            
+            border-top-left-radius: 30%;
+            border-bottom-left-radius: 30%;
+        }
+        .usericon p{
+            border-top-left-radius: 30%;
+            border-bottom-left-radius: 30%;
+            border: 3px solid rgb(134, 42, 238);
+            border-right: none;
+            padding-right: 15px;
+            padding: 15px 15px 15px 10px;
+            display: inline-block;
+            font-size: larger;
+            font-weight: bolder;
+        }
+        .usericon img{
+            margin-top: 10px;
+            border-radius: 50%;
+        }
+        .main{
+            width: auto;
+            margin-top: 10vh;
+            height: 20vh;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            grid-template-columns: 70% auto;
+        }
+        .systemone{
+            width: calc(50% + 50px);
+            height: auto;
+            padding: 2% 5%;
+            line-height: 20px;
+            text-align: justify;
+        }
+        .systemtext{
+            width: calc(50% - 50px);
+            height: auto;
+            background-color: blue;
+            border-left: 100px solid white;
+            border-bottom: 160px solid transparent;
+            align-items:flex-end;
+        }
+        .text{
+            display: grid;
+            align-content:end;
+        }
+        .button{
+            width: 100%;
+            height: auto;
+            margin: auto;
+            
+            display: grid;
+        }
+        .button img{
+            width: 200px;
+            height: 200px;
+            margin: auto;
+            margin-top: 10vh;
+        }
+        pre{
+            font-size: xx-large;
+            font-weight: bolder;
+            color: grey;
+            
+        }
+        .lock{
+            display: none;
+        }
+        .unlock{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="header">
+            <h1>Automated Secure IOT</h1>
+        </div>
+        <div class="user">
+            <div class="usericon">
+                <p>Mr Mark</p>
+                <img src="image/dog2.jpg" alt="image" width="70px">
+            </div>
+        </div>
+    </nav>
+    <section class="main">
+            <div class="systemone lock">
+                <h1> The Home automation security system is currently activated, in this mode the device will send a signal to the web page once there is a breach, as the device is currently transmitting it's alert readings to the server</h1>
+            </div>
+            <div class="systemtext lock">
+                <div class="text">
+                    <pre>              System Status</pre>
+                <pre id="status">                  On <i class="fa fa-lock" aria-hidden="true"></i> </pre>
+                </div>
+                
+            </div>
+
+            <div class="systemone unlock">
+                <h1> The Home automation security system is current deactivated, this mode will not trigger any alarm, as the device is currently not transmitting it's alert readings to the server</h1>
+            </div>
+            <div class="systemtext unlock">
+                <div class="text">
+                    <pre>              System Status</pre>
+                <pre id="status">                  Off <i class="fa fa-unlock-alt" aria-hidden="true"></i> </pre>
+                </div>
+            </div>        
+        
+    </section>
+
+    <section class="trigger">
+        
+        <div class="button" id="toggle">
+            <img src="/image/padlock.png" alt="padlock" class="lock" >
+            <img src="/image/padopen.png" alt="open lock" class="unlock">
+            
+        </div>
+    </section>
+
+    <!-- Imports and configuration  -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAjPAcFQ9gmhYoG-Tl14Vzado-cX8k29ag",
+          authDomain: "automated-security-iot.firebaseapp.com",
+          projectId: "automated-security-iot",
+          storageBucket: "automated-security-iot.appspot.com",
+          messagingSenderId: "901955924590",
+          appId: "1:901955924590:web:203e31e30aceb245276c7f"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        import {getDatabase, ref, get, set, child, update, remove}
+        from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js"
+        
+        const db = getDatabase();
+
+        // References
+        var lock, lockstate, alarm, toggle = document.getElementById("toggle");
+         
+        //insert data to firebase 
+        function InsertData(){
+            set(ref(db, "Device/Barry"),{
+                Lock : "0",
+                LockState : "0",
+                Alarm: "0"
+            })
+            .then(()=>{
+                alert("Data created successfully");
+            })
+            .catch((error)=>{
+                alert("Unsuccessful, error" + error);
+            });
+        }
+
+        //Selecting data 
+
+        function getAlarmState(){
+            const dbref = ref(db);
+
+            get(child(dbref, "Device/Barry")).then((snapshot)=>{
+                if(snapshot.exists()){
+                    alarm = snapshot.val().Alarm;
+                    console.log("Alarm value: " + alarm); 
+                }
+
+                else{
+                    console.log("No data found");
+                } 
+            })
+            .catch((error)=>{
+                console.log("unsuccessful " + error);
+            })
+        }
+
+        function getLockState(){
+            const dbref = ref(db);
+
+            get(child(dbref, "Device/Barry")).then((snapshot)=>{
+                if(snapshot.exists()){
+                    
+                    lock = snapshot.val().Lock;
+                    console.log("Lock value: " + lock); 
+                }
+
+                else{
+                    console.log("No data found");
+                } 
+            })
+            .catch((error)=>{
+                console.log("unsuccessful " + error);
+            })
+        }
+        
+
+        // Call myFunction every 1 second (1000 milliseconds)
+        setInterval(getAlarmState, 1000);
+
+        //update Data
+        function UpdateData(){
+            const dbref = ref(db);
+            update(ref(db, "Device/Barry"),{
+                Lock : lock
+                
+            })
+            .then(()=>{
+                console.log("Data updated successfully" + lock);
+            })
+            .catch((error)=>{
+                console.log("Unsuccessful, error" + error);
+            });
+        }
+
+        // Assing events to button
+        toggle.addEventListener('click',function(){
+            console.log("Clicked the button");
+            console.log("Lock " + lock);
+            getLockState();
+            var div1 = document.getElementsByClassName("unlock");
+            var div2 = document.getElementsByClassName("lock");
+
+            
+            if(lock === "0" ){
+                console.log("inside lock  0 " + lock);
+                lock = "1";
+                for (var i = 0; i < div1.length; i++) {
+                    console.log("inside for loop");
+                    div1[i].style.display = "none";
+                    div2[i].style.display = "block";
+                }
+            }
+            else if (lock === "1"){
+                console.log("inside lock  1 " + lock);
+                lock = "0";
+                for (var i = 0; i < div1.length; i++) {
+                    console.log("inside for loop");
+                    div1[i].style.display = "block";
+                    div2[i].style.display = "none";
+                }
+            }
+            
+            UpdateData();
+        }); 
+
+        //initializing factors 
+        window.onload = function() {
+            // Your code here
+            getLockState();
+            console.log("The page has loaded!");
+        };
+
+      </script>
+</body>
+</html>
