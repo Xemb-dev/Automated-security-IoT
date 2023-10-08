@@ -7,250 +7,40 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Pavanam' rel='stylesheet'>
     <style>
-        
-        *{
-            box-sizing: border-box;
-            line-height: 20px;
-            font-family: 'Pavanam';font-size: 22px;
-        }
-        body{
-            padding: 0px;
-            margin: 0px;
-            background-color: white;
-        }
-        nav{
-            width: auto;
-            height: 20vh;
-            
-            display: grid;
-            grid-template-columns: auto auto;
-            align-content: center;
-        }
-        .header{
-            background-color: blue;
-            display: inline-block;
-            
-            
-        }
-        .header h1{
-            margin-left: 20%;
-            font-size: xx-large;
-            color: white;
-
-        }
-        .user{
-            display: inline-block;
-            width: auto;
-            height: auto;
-            
-            
-        }
-        .usericon{
-            float: right;
-            margin-right: 10%;
-            padding: 5px 10px;
-            background-color: white;
-            width: auto;
-            display: grid;
-            grid-template-columns: auto auto;
-            align-content: center;
-            
-            border-top-left-radius: 30%;
-            border-bottom-left-radius: 30%;
-        }
-        .usericon p{
-            border-top-left-radius: 30%;
-            border-bottom-left-radius: 30%;
-            border: 3px solid rgb(134, 42, 238);
-            border-right: none;
-            padding-right: 15px;
-            padding: 15px 15px 15px 10px;
-            display: inline-block;
-            font-size: larger;
-            font-weight: bolder;
-        }
-        .usericon img{
-            margin-top: 10px;
-            border-radius: 50%;
-            width: 70px;
-        }
-        .main{
-            width: auto;
-            margin-top: 5vh;
-            height: 25vh;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            display: flex;
-            grid-template-columns: 70% auto;
-        }
-        .systemone{
-            width: calc(50% + 50px);
-            height: auto;
-            padding: 2% 5%;
-            line-height: 20px;
-            text-align: justify;
-        }
-        .systemtext{
-            width: calc(50% - 50px);
-            height: auto;
-            background-color: blue;
-            border-left: 100px solid white;
-            border-bottom: 160px solid transparent;
-            align-items:flex-end;
-        }
-        .text{
-            display: grid;
-            align-content:end;
-        }
-        .button{
-            width: 100%;
-            height: auto;
-            margin: auto;
-            
-            display: grid;
-        }
-        .button img{
-            width: 200px;
-            height: 200px;
-            margin: auto;
-            margin-top: 10vh;
-            border-radius: 5%;
-        }
-        pre{
-            font-size: xx-large;
-            font-weight: bolder;
-            color: white;
-            
-        }
-        .lock{
-            display: none;
-        }
-        .unlock{
-            display: block;
-        }
-        /* On screens that are 600px or less, set the background color to olive */
-        @media screen and (max-width: 600px) {
             *{
                 box-sizing: border-box;
                 line-height: 20px;
                 font-family: 'Pavanam';
-                font-size: 10px;
-            }
-            body{
-                padding: 0px;
-                margin: 100%;
-                height: 100vh;
-                width: 100%;
-                background-color: rgb(168, 65, 65);
+                
             }
             nav{
-                width: 100%;
-                height: 20vh;
                 display: grid;
-                grid-template-columns: auto auto;
-                align-content:normal; 
-                background-color: yellow;
+                grid-template-columns: 50% 50%;
+                height: 20%;
             }
             .header{
                 background-color: blue;
-                display: inline-block;
-                line-height: 30px;
-                
-            }
-            .header h1{
-                margin-left: 2%;
                 color: white;
-
+                font-size: x-large;
+                text-wrap:wrap;
             }
             .user{
-                display: inline-block;
-                width: auto;
-                height: fit-content;
-                background-color: red;
                 
             }
             .usericon{
                 float: right;
-                /* margin-right: 10%; */
-                padding: 5px 10px;
-                background-color: white;
-                width: auto;
                 display: grid;
-                grid-template-columns: auto auto;
-                align-content: center;
-                
-                border-top-left-radius: 30%;
-                border-bottom-left-radius: 30%;
+
+                justify-content: center;
             }
             .usericon p{
-                border-top-left-radius: 30%;
-                border-bottom-left-radius: 30%;
-                border: 3px solid rgb(134, 42, 238);
-                border-right: none;
-                padding-right: 15px;
-                padding: 15px 15px 15px 10px;
                 display: inline-block;
-                font-size: larger;
-                font-weight: bolder;
             }
             .usericon img{
-                margin-top: 10px;
                 border-radius: 50%;
-                width: 30px;
+                width: 70px;
             }
-            .main{
-                width: auto;
-                margin-top: 5vh;
-                height: 25vh;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-                display: flex;
-                grid-template-columns: 70% auto;
-            }
-            .systemone{
-                width: calc(50% + 50px);
-                height: auto;
-                padding: 2% 5%;
-                line-height: 20px;
-                text-align: justify;
-            }
-            .systemtext{
-                width: calc(50% - 50px);
-                height: auto;
-                background-color: blue;
-                border-left: 100px solid white;
-                border-bottom: 160px solid transparent;
-                align-items:flex-end;
-            }
-            .text{
-                display: grid;
-                align-content:end;
-            }
-            .button{
-                width: 100%;
-                height: auto;
-                margin: auto;
-                
-                display: grid;
-            }
-            .button img{
-                width: 200px;
-                height: 200px;
-                margin: auto;
-                margin-top: 10vh;
-                border-radius: 5%;
-            }
-            pre{
-                font-size: xx-large;
-                font-weight: bolder;
-                color: white;
-                
-            }
-            .lock{
-                display: none;
-            }
-            .unlock{
-                display: block;
-            }
-        }
+
     </style>
 </head>
 <body>
@@ -261,7 +51,7 @@
         <div class="user">
             <div class="usericon">
                 <p>Mr Mark</p>
-                <img src="image/person icon.jpg" alt="image" >
+                <img src="image/dog2.jpg" alt="image" >
             </div>
         </div>
     </nav>
@@ -299,7 +89,7 @@
     </section>
 
     <!-- Imports and configuration  -->
-    <script type="module">
+    <!-- <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
         // TODO: Add SDKs for Firebase products that you want to use
@@ -444,6 +234,6 @@
             console.log("The page has loaded!");
         };
 
-      </script>
+      </script> -->
 </body>
 </html>
